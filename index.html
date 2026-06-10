@@ -18,6 +18,7 @@
     --muted: #64748b;
     --success: #10b981;
     --danger: #ef4444;
+    --warning: #f59e0b;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -34,26 +35,16 @@
 
   header { margin-bottom: 28px; }
   header h1 {
-    font-size: 28px;
-    font-weight: 800;
+    font-size: 28px; font-weight: 800;
     background: linear-gradient(135deg, #e2e8f0, #7c3aed);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   }
   header p { color: var(--muted); font-size: 13px; margin-top: 4px; font-family: 'Space Mono', monospace; }
 
   .btn {
-    width: 100%;
-    padding: 14px 20px;
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    font-family: 'Syne', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s;
-    margin-bottom: 12px;
+    width: 100%; padding: 14px 20px; border-radius: 12px;
+    border: 1px solid var(--border); font-family: 'Syne', sans-serif;
+    font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.2s; margin-bottom: 12px;
   }
   .btn-connect { background: var(--accent); color: white; border-color: var(--accent); }
   .btn-connect:hover { opacity: 0.85; }
@@ -63,12 +54,9 @@
 
   .status-bar {
     display: flex; align-items: center; gap: 8px;
-    padding: 10px 14px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    margin-bottom: 20px;
-    font-family: 'Space Mono', monospace;
+    padding: 10px 14px; background: var(--surface);
+    border: 1px solid var(--border); border-radius: 10px;
+    margin-bottom: 20px; font-family: 'Space Mono', monospace;
     font-size: 12px; color: var(--muted);
   }
   .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); flex-shrink: 0; transition: background 0.3s; }
@@ -76,124 +64,87 @@
   .dot.error { background: var(--danger); }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
 
+  /* ALERTA BANNER */
+  .alerta-banner {
+    display: none;
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 16px;
+    font-weight: 700;
+    font-size: 15px;
+    text-align: center;
+    animation: fadeIn 0.4s ease;
+  }
+  .alerta-banner.aviso {
+    display: block;
+    background: rgba(245,158,11,0.15);
+    border: 1px solid var(--warning);
+    color: var(--warning);
+  }
+  .alerta-banner.peligro {
+    display: block;
+    background: rgba(239,68,68,0.15);
+    border: 1px solid var(--danger);
+    color: var(--danger);
+    animation: blink 1s infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.6} }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:none} }
+
   .section-title {
-    font-size: 11px;
-    font-family: 'Space Mono', monospace;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 10px;
-    margin-top: 20px;
+    font-size: 11px; font-family: 'Space Mono', monospace;
+    color: var(--muted); text-transform: uppercase;
+    letter-spacing: 1px; margin-bottom: 10px; margin-top: 20px;
   }
 
   .live-value {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 12px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px; margin-bottom: 12px;
+    text-align: center; position: relative; overflow: hidden;
   }
   .live-value::before {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 3px;
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
     background: linear-gradient(90deg, var(--accent), var(--accent2));
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s;
+    transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
   }
   .live-value.active::before { transform: scaleX(1); }
   .live-label { font-size: 11px; color: var(--muted); font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
   .live-number { font-size: 52px; font-weight: 800; font-family: 'Space Mono', monospace; color: var(--text); line-height: 1; }
   .live-number.peak { color: var(--accent2); }
 
-  .stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 12px;
-  }
-  .stat-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 14px 12px;
-    text-align: center;
-  }
+  .stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+  .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 12px; text-align: center; }
   .stat-card.highlight { border-color: var(--accent); }
   .stat-label { font-size: 10px; color: var(--muted); font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
   .stat-value { font-size: 20px; font-weight: 800; color: var(--text); font-family: 'Space Mono', monospace; }
   .stat-card.highlight .stat-value { color: var(--accent2); }
 
-  /* Desgaste */
-  .desgaste-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 18px;
-    margin-bottom: 12px;
-  }
-  .desgaste-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 14px;
-  }
+  .desgaste-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px; margin-bottom: 12px; transition: border-color 0.3s; }
+  .desgaste-card.aviso { border-color: var(--warning); }
+  .desgaste-card.peligro { border-color: var(--danger); }
+  .desgaste-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
   .desgaste-label { font-size: 12px; color: var(--muted); font-family: 'Space Mono', monospace; }
-  .desgaste-val { font-size: 22px; font-weight: 800; font-family: 'Space Mono', monospace; color: var(--accent3); }
+  .desgaste-val { font-size: 28px; font-weight: 800; font-family: 'Space Mono', monospace; color: var(--accent3); transition: color 0.3s; }
+  .desgaste-val.aviso { color: var(--warning); }
+  .desgaste-val.peligro { color: var(--danger); }
   .desgaste-ohm { font-size: 14px; color: var(--muted); font-family: 'Space Mono', monospace; }
 
-  .progress-bar {
-    width: 100%;
-    height: 10px;
-    background: var(--border);
-    border-radius: 5px;
-    overflow: hidden;
-  }
+  .progress-bar { width: 100%; height: 12px; background: var(--border); border-radius: 6px; overflow: hidden; }
   .progress-fill {
-    height: 100%;
-    border-radius: 5px;
-    background: linear-gradient(90deg, var(--success), var(--accent3), var(--danger));
-    transition: width 0.5s ease;
-    width: 0%;
+    height: 100%; border-radius: 6px;
+    background: linear-gradient(90deg, var(--success), var(--warning), var(--danger));
+    transition: width 0.5s ease; width: 0%;
   }
-  .progress-labels {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 4px;
-    font-size: 10px;
-    color: var(--muted);
-    font-family: 'Space Mono', monospace;
-  }
+  .progress-labels { display: flex; justify-content: space-between; margin-top: 4px; font-size: 10px; color: var(--muted); font-family: 'Space Mono', monospace; }
 
-  .log {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 14px;
-    height: 160px;
-    overflow-y: auto;
-    font-family: 'Space Mono', monospace;
-    font-size: 12px;
-    margin-bottom: 12px;
-  }
-  .log-entry {
-    padding: 4px 0;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    animation: fadeIn 0.3s ease;
-  }
-  @keyframes fadeIn { from { opacity:0; transform: translateY(-4px); } to { opacity:1; transform:none; } }
+  .log { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px; height: 160px; overflow-y: auto; font-family: 'Space Mono', monospace; font-size: 12px; margin-bottom: 12px; }
+  .log-entry { padding: 4px 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; animation: fadeIn 0.3s ease; }
   .log-entry:last-child { border-bottom: none; }
   .log-time { color: var(--muted); font-size: 10px; }
   .log-val-piezo { color: var(--accent2); font-weight: 700; }
   .log-val-desgaste { color: var(--accent3); font-weight: 700; }
+  .log-val-aviso { color: var(--warning); font-weight: 700; }
+  .log-val-peligro { color: var(--danger); font-weight: 700; }
   .log-empty { color: var(--muted); text-align: center; padding: 20px 0; }
 </style>
 </head>
@@ -212,14 +163,15 @@
   <button class="btn btn-connect" id="btn-connect" onclick="conectar()">Conectar al ESP32-Nucleo</button>
   <button class="btn btn-disconnect" id="btn-disconnect" style="display:none" onclick="desconectar()">Desconectar</button>
 
+  <!-- ALERTA -->
+  <div class="alerta-banner" id="alerta-banner">⚠️ —</div>
+
   <!-- PIEZO -->
   <div class="section-title">Piezo</div>
-
   <div class="live-value" id="live-box">
     <div class="live-label">Valor actual</div>
     <div class="live-number" id="live-num">—</div>
   </div>
-
   <div class="stats">
     <div class="stat-card">
       <div class="stat-label">Lecturas</div>
@@ -237,8 +189,7 @@
 
   <!-- DESGASTE -->
   <div class="section-title">Desgaste</div>
-
-  <div class="desgaste-card">
+  <div class="desgaste-card" id="desgaste-card">
     <div class="desgaste-row">
       <div>
         <div class="desgaste-label">Porcentaje</div>
@@ -254,7 +205,8 @@
     </div>
     <div class="progress-labels">
       <span>0%</span>
-      <span>50%</span>
+      <span>50% ⚠️</span>
+      <span>75% 🚨</span>
       <span>100%</span>
     </div>
   </div>
@@ -310,11 +262,13 @@ function onDato(event) {
       const valor = parseInt(linea.replace('PIEZO:', ''));
       if (!isNaN(valor) && valor > 0) procesarPiezo(valor);
     } else if (linea.startsWith('DESGASTE:')) {
-      // formato: DESGASTE:316.6ohm 7.7%
       const partes = linea.replace('DESGASTE:', '').split(' ');
       const ohm = parseFloat(partes[0]);
       const pct = parseFloat(partes[1]);
       if (!isNaN(ohm) && !isNaN(pct)) procesarDesgaste(ohm, pct);
+    } else if (linea.startsWith('ALERTA:')) {
+      const tipo = linea.replace('ALERTA:', '').trim();
+      mostrarAlerta(tipo);
     }
   });
 }
@@ -337,10 +291,35 @@ function procesarPiezo(valor) {
 
 function procesarDesgaste(ohm, pct) {
   const ahora = new Date().toTimeString().slice(0,8);
-  document.getElementById('desgaste-pct').textContent = pct.toFixed(1) + '%';
+  const pctEl = document.getElementById('desgaste-pct');
+  const card = document.getElementById('desgaste-card');
+
   document.getElementById('desgaste-ohm').textContent = ohm.toFixed(1) + ' Ω';
+  pctEl.textContent = pct.toFixed(1) + '%';
   document.getElementById('progress-fill').style.width = Math.min(pct, 100) + '%';
+
+  // Colores según nivel
+  pctEl.className = 'desgaste-val';
+  card.className = 'desgaste-card';
+  if (pct >= 75) { pctEl.classList.add('peligro'); card.classList.add('peligro'); }
+  else if (pct >= 50) { pctEl.classList.add('aviso'); card.classList.add('aviso'); }
+
   addLog(ahora, 'DESGASTE: ' + pct.toFixed(1) + '%', 'desgaste');
+}
+
+function mostrarAlerta(tipo) {
+  const banner = document.getElementById('alerta-banner');
+  const ahora = new Date().toTimeString().slice(0,8);
+  banner.className = 'alerta-banner';
+  if (tipo === 'PELIGRO') {
+    banner.classList.add('peligro');
+    banner.textContent = '🚨 PELIGRO — Sensor al límite, cambiar inmediatamente';
+    addLog(ahora, '🚨 PELIGRO', 'peligro');
+  } else if (tipo === 'AVISO') {
+    banner.classList.add('aviso');
+    banner.textContent = '⚠️ AVISO — Cambiar el sensor pronto';
+    addLog(ahora, '⚠️ AVISO', 'aviso');
+  }
 }
 
 function addLog(hora, texto, tipo) {
@@ -382,6 +361,7 @@ function limpiar() {
   document.getElementById('desgaste-pct').textContent = '—';
   document.getElementById('desgaste-ohm').textContent = '—';
   document.getElementById('progress-fill').style.width = '0%';
+  document.getElementById('alerta-banner').className = 'alerta-banner';
   document.getElementById('log').innerHTML = '<div class="log-empty">Sin datos aún...</div>';
 }
 
